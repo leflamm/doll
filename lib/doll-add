@@ -1,0 +1,17 @@
+#!/bin/bash
+
+DOLL=$1
+
+source $(dirname $0)/../conf/doll.cfg
+
+usage() {
+	echo " doll filter <doll>"
+	echo
+	echo " add doll to dolls list" 
+	exit 1
+}
+
+[ $# -ne 1 ] && usage
+
+echo "${DOLL}" >> "$(dirname $0)/../conf/${DOLLFILE}"
+

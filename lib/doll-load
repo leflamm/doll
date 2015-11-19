@@ -1,0 +1,13 @@
+#!/bin/bash
+
+source $(dirname $0)/../conf/doll.cfg
+
+do_list() {
+	CMD='puppet cert list --all | grep ^+ | egrep -o "^[^\"]*\"[^\"]*\"" | sed "s/[\+ \"]*//g" | sort'
+	ssh ${PUPPETUSER}@${PUPPETMASTER} "${CMD}"
+}
+
+${DEBUG} && echo " ${0}: loading dolls list"
+
+do_list > $(dirname $0)/../conf/${DOLLFILE}
+

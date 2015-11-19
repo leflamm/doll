@@ -1,0 +1,20 @@
+#!/bin/bash
+
+PATTERN=$1
+
+source $(dirname $0)/../conf/doll.cfg
+
+usage() {
+	echo " doll filter <pattern>"
+	echo
+	echo " filter loaded dolls by given pattern" 
+	exit 1
+}
+
+[ $# -ne 1 ] && usage
+
+FILTERED=$(egrep -oE "${PATTERN}" "$(dirname $0)/../conf/${DOLLFILE}")
+
+echo "${FILTERED}" > "$(dirname $0)/../conf/${DOLLFILE}"
+
+doll list

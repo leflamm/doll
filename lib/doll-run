@@ -1,0 +1,23 @@
+#!/bin/bash
+
+CMD=$1
+
+source $(dirname $0)/../conf/doll.cfg
+
+usage() {
+	echo " doll run <cmd>"
+	echo
+	echo " let all loaded dolls run given command" 
+	exit 1
+}
+
+[ $# -ne 1 ] && usage
+
+parallel-ssh \
+	--hosts="$(dirname $0)/../conf/${DOLLFILE}" \
+	-l ${REMOTEUSER} \
+	-p ${PARALLELISM} \
+	-O ConnectTimeout=${CONNECTION_TIMEOUT} \
+	-t ${CMD_TIMEOUT} \
+	-P ${CMD}
+
