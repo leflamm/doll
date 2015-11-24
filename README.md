@@ -1,7 +1,7 @@
 
 # doll
 
-Simple glue code that can be used to send arbitrary commands to e. g. ``puppet agents`` managed by a ``puppet master``.
+Simple glue code that can be used to send arbitrary commands to e. g. ``puppet agents`` managed by a ``puppet master`` for e. g. triggering puppet runs or restart services.
 
 ## disclaimer
 
