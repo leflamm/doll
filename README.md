@@ -87,5 +87,5 @@ balancer.dev:
 
 ## buzz
 
-puppet master agent pssh parallel-ssh orchestrate simple command send service restart non-declarative action trigger on-demand kick
+puppet master agent pssh parallel-ssh orchestrate simple command send service restart non-declarative action trigger on-demand kick run
 
