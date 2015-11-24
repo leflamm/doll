@@ -9,7 +9,7 @@ Rather alpha, k?
 
 ## usage
 
-Load list of puppet agents manageid by puppet master. I'll call them dolls from now on.
+Load list of puppet agents managed by puppet master. I'll call them dolls from now on.
 ```bash
 $ doll load
 ```
