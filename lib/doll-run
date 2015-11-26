@@ -13,11 +13,12 @@ usage() {
 
 [ $# -ne 1 ] && usage
 
-parallel-ssh \
-	--hosts="$(dirname $0)/../conf/${DOLLFILE}" \
-	-l ${REMOTEUSER} \
-	-p ${PARALLELISM} \
-	-O ConnectTimeout=${CONNECTION_TIMEOUT} \
-	-t ${CMD_TIMEOUT} \
-	-P ${CMD}
-
+[ -s "$(dirname $0)/../conf/${DOLLFILE}" ] && {
+	parallel-ssh \
+		--hosts="$(dirname $0)/../conf/${DOLLFILE}" \
+		-l ${REMOTEUSER} \
+		-p ${PARALLELISM} \
+		-O ConnectTimeout=${CONNECTION_TIMEOUT} \
+		-t ${CMD_TIMEOUT} \
+		-P ${CMD}
+}

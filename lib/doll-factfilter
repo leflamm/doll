@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# TODO Usage
+
+FACT=$1
+VALUE=$2
+CMD="facter ${FACT}"
+PAR=3
+
+source $(dirname $0)/../conf/doll.cfg
+
+TMPDIR=$(mktemp -d)
+
+[ -s "$(dirname $0)/../conf/${DOLLFILE}" ] && {
+	parallel-ssh \
+		--hosts="$(dirname $0)/../conf/${DOLLFILE}" \
+		-l ${REMOTEUSER} \
+		-p ${PAR} \
+		-O ConnectTimeout=${CONNECTION_TIMEOUT} \
+		-t ${CMD_TIMEOUT} \
+		-o ${TMPDIR} \
+		-P ${CMD}
+	
+	doll clear
+	
+	for HOST in $(ls ${TMPDIR})
+	do
+		ACTUAL=$(cat ${TMPDIR}/${HOST})
+		[ "${ACTUAL}" == "${VALUE}" ] && echo ${HOST} >> "$(dirname $0)/../conf/${DOLLFILE}"
+	done
+}
+
