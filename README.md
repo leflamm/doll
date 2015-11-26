@@ -28,13 +28,19 @@ web.dev
 web.live
 web.pre
 ```
-Filter dolls with pattern.
+Filter dolls with pattern regarding their names...
 ```bash
 $ doll filter .*dev
 app.dev
 balancer.dev
 log.dev
 web.dev
+
+```
+... or regarding certain facter values.
+```
+$ doll factfilter processorcount 4
+$ doll factfilter osfamily RedHat
 ```
 This is now permanent unless list gets cleared or loaded again.
 ```bash
