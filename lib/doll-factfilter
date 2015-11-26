@@ -40,3 +40,4 @@ TMPDIR=$(mktemp -d)
 	done
 }
 
+#rm -rf ${TMPDIR}
