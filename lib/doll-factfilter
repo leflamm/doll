@@ -9,6 +9,16 @@ PAR=3
 
 source $(dirname $0)/../conf/doll.cfg
 
+usage() {
+	echo " doll factfilter <fact> <value to filter>"
+	echo
+	echo " filter for dolls where given <fact>'s value"
+	echo " equals given value"
+	exit 1
+}
+
+[ $# -ne 2 ] && usage
+
 TMPDIR=$(mktemp -d)
 
 [ -s "$(dirname $0)/../conf/${DOLLFILE}" ] && {
