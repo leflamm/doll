@@ -39,10 +39,13 @@ web.dev
 ```
 ... or regarding certain facter values.
 ```
-$ doll factfilter processorcount 4
 $ doll factfilter osfamily RedHat
 ```
-This is now permanent unless list gets cleared or loaded again.
+You could also allow multiple legal values.
+```
+$ doll factfilter processorcount 1 2 4
+```
+Every (fact)filter action alters the doll list permanently until it gets either cleared oder loaded again. This means multiple filter values within the same filter call are treated as an OR-combination. Hence, multiple filter commands are an AND-combination.
 ```bash
 $ doll list
 app.dev
