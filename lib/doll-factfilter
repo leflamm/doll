@@ -18,9 +18,12 @@ usage() {
 
 # see http://stackoverflow.com/questions/3685970/check-if-an-array-contains-a-value
 rest_contains_first_element () {
-  local e
-  for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
-  return 1
+	local e
+	for e in "${@:2}"
+	do 
+		[[ "$e" == "$1" ]] && return 0
+	done
+	return 1
 }
 
 
