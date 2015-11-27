@@ -9,10 +9,10 @@ PAR=3
 source $(dirname $0)/../conf/doll.cfg
 
 usage() {
-	echo " doll factfilter <fact> <value to filter>"
+	echo " doll factfilter <fact> <legal value1> <legal value2> <...>"
 	echo
 	echo " filter for dolls where given <fact>'s value"
-	echo " equals given value"
+	echo " equals given legal value(s)"
 	exit 1
 }
 
