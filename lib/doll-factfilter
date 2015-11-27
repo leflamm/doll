@@ -3,7 +3,6 @@
 # TODO Usage
 
 FACT=$1
-VALUE=$2
 CMD="facter ${FACT}"
 PAR=3
 
@@ -17,7 +16,17 @@ usage() {
 	exit 1
 }
 
-[ $# -ne 2 ] && usage
+# see http://stackoverflow.com/questions/3685970/check-if-an-array-contains-a-value
+rest_contains_first_element () {
+  local e
+  for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
+  return 1
+}
+
+
+[ $# -lt 2 ] && usage
+
+shift # we only want to keep the list of legal values
 
 TMPDIR=$(mktemp -d)
 
@@ -36,8 +45,14 @@ TMPDIR=$(mktemp -d)
 	for HOST in $(ls ${TMPDIR})
 	do
 		ACTUAL=$(cat ${TMPDIR}/${HOST})
-		[ "${ACTUAL}" == "${VALUE}" ] && echo ${HOST} >> "$(dirname $0)/../conf/${DOLLFILE}"
+		if rest_contains_first_element "${ACTUAL}" $@ # note there has been a shift
+		then
+			echo ${HOST} >> "$(dirname $0)/../conf/${DOLLFILE}"
+		fi		
 	done
 }
+
+echo
+doll unique
 
 #rm -rf ${TMPDIR}

@@ -3,7 +3,7 @@
 source $(dirname $0)/../conf/doll.cfg
 
 do_list() {
-	CMD='puppet cert list --all | grep ^+ | egrep -o "^[^\"]*\"[^\"]*\"" | sed "s/[\+ \"]*//g" | sort'
+	CMD='puppet cert list --all | grep ^+ | egrep -o "^[^\"]*\"[^\"]*\"" | sed "s/[\+ \"]*//g" | sort -u'
 	ssh ${PUPPETUSER}@${PUPPETMASTER} "${CMD}"
 }
 
