@@ -45,7 +45,7 @@ You could also allow multiple legal values.
 ```
 $ doll factfilter processorcount 1 2 4
 ```
-Every (fact)filter action alters the doll list permanently until it gets either cleared oder loaded again. This means multiple filter values within the same filter call are treated as an OR-combination. Hence, multiple filter commands are an AND-combination.
+Every (fact)filter action alters the doll list permanently until it gets either cleared oder loaded again. This means multiple filter values within the same filter call are combined via an OR-operation. Hence, multiple filter commands are an AND-combination.
 ```bash
 $ doll list
 app.dev
