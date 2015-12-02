@@ -7,6 +7,16 @@ Simple glue code that can be used to send arbitrary commands to e. g. ``puppet a
 
 Rather alpha, k?
 
+## setup
+
+Redefine variables in `conf/doll.cfg` according to your environment. You'll need password-less (pubkey auth) access as ``$PUPPETUSER`` on ``$PUPPETMASTER`` and password-less access as ``$REMOTEUSER`` on managed agents. You'll need [parallel-ssh](https://code.google.com/p/parallel-ssh/) installed as well. There's a very basic check you can run afterwards.
+```bash
+$ doll check
+/usr/bin/parallel-ssh
+3.5.1
+ All tests passed.
+```
+
 ## usage
 
 Load list of puppet agents managed by puppet master. I'll call them dolls from now on.
