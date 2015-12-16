@@ -103,6 +103,13 @@ balancer.dev:
 [2] 11:17:54 [SUCCESS] balancer.dev
 ...
 ```
+You can ignore dolls permanently so they will be excluded from any run.
+```
+$ doll ignore app.dev
+$ doll listignores
+app.dev
+$ doll clearignores
+```
 
 ## buzz
 
