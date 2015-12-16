@@ -7,7 +7,7 @@ source $(dirname $0)/../conf/doll.cfg
 usage() {
 	echo " doll run <cmd>"
 	echo
-	echo " let all loaded dolls run given command" 
+	echo " let all loaded unignored dolls run given command" 
 	exit 1
 }
 
@@ -15,7 +15,7 @@ usage() {
 
 [ -s "$(dirname $0)/../conf/${DOLLFILE}" ] && {
 	parallel-ssh \
-		--hosts="$(dirname $0)/../conf/${DOLLFILE}" \
+		--hosts=<(grep "$(dirname $0)/../conf/${DOLLFILE}" -vf "$(dirname $0)/../conf/${IGNOREFILE}") \
 		-l ${REMOTEUSER} \
 		-p ${PARALLELISM} \
 		-O ConnectTimeout=${CONNECTION_TIMEOUT} \

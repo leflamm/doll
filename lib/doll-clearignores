@@ -1,0 +1,6 @@
+#!/bin/bash
+
+source $(dirname $0)/../conf/doll.cfg
+
+echo -n > "$(dirname $0)/../conf/${IGNOREFILE}"
+
