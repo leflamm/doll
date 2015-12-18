@@ -2,4 +2,6 @@
 
 source $(dirname $0)/../conf/doll.cfg
 
-cat "$(dirname $0)/../conf/${DOLLFILE}"
+grep -vf "$(dirname $0)/../conf/${IGNOREFILE}" "$(dirname $0)/../conf/${DOLLFILE}"
+echo --------
+cat $(dirname $0)/../conf/${IGNOREFILE} | sed 's/^/ignored: /g'
