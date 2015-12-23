@@ -13,9 +13,11 @@ usage() {
 
 [ $# -ne 1 ] && usage
 
-[ -s "$(dirname $0)/../conf/${DOLLFILE}" ] && {
+FILTERED_DOLLS_LIST=$(grep "$(dirname $0)/../conf/${DOLLFILE}" -vf "$(dirname $0)/../conf/${IGNOREFILE}")
+
+[ -n "${FILTERED_DOLLS_LIST}" ] && {
 	parallel-ssh \
-		--hosts=<(grep "$(dirname $0)/../conf/${DOLLFILE}" -vf "$(dirname $0)/../conf/${IGNOREFILE}") \
+		--hosts=<(echo "${FILTERED_DOLLS_LIST}") \
 		-l ${REMOTEUSER} \
 		-p ${PARALLELISM} \
 		-O ConnectTimeout=${CONNECTION_TIMEOUT} \
