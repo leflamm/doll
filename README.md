@@ -1,11 +1,9 @@
 
 # doll
 
-Simple glue code that can be used to send arbitrary commands to e. g. ``puppet agents`` managed by a ``puppet master`` for e. g. triggering puppet runs or restart services.
+Simple glue code that can be used to send arbitrary commands to nodes. Nodes can be added manually or retrieved from the list of puppet agents known to a puppet master. It adds the functionality to filter by hostname patterns or by facter facts as well as to ignore certain hosts. 
 
-## disclaimer
-
-Rather alpha, k?
+The original motivation was to have a very simple tool that can trigger puppet agent runs on a specific subset of all puppet agents.
 
 ## setup
 
@@ -110,8 +108,3 @@ $ doll listignores
 app.dev
 $ doll clearignores
 ```
-
-## buzz
-
-puppet master agent pssh parallel-ssh orchestrate simple command send service restart non-declarative action trigger on-demand kick run facter filter hostname filter
-
