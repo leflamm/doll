@@ -1,0 +1,3 @@
+#!/bin/bash
+
+doll run "puppet agent --onetime"
