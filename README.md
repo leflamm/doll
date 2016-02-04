@@ -3,7 +3,7 @@
 
 Simple glue code that can be used to send arbitrary commands to nodes. Nodes can be added manually or retrieved from the list of puppet agents known to a puppet master. It adds the functionality to filter by hostname patterns or by facter facts as well as to ignore certain hosts. 
 
-The original motivation was to have a very simple tool that can trigger puppet agent runs on a specific subset of all puppet agents.
+The original motivation was to have a simple tool that can trigger puppet agent runs on a specific subset of all puppet agents.
 
 ## setup
 
@@ -17,94 +17,70 @@ $ doll check
 
 ## usage
 
-Load list of puppet agents managed by puppet master. I'll call them dolls from now on.
-```bash
-$ doll load
-```
-```bash
-$ doll list
-app.dev
-app.live
-app.pre
-balancer.dev
-balancer.live
-balancer.pre
-log.dev
-log.live
-log.pre
-web.dev
-web.live
-web.pre
-```
-Filter dolls with pattern regarding their names...
-```bash
-$ doll filter .*dev
-app.dev
-balancer.dev
-log.dev
-web.dev
+### add nodes
 
-```
-... or regarding certain facter values.
-```
-$ doll factfilter osfamily RedHat
-```
-You could also allow multiple legal values.
-```
-$ doll factfilter processorcount 1 2 4
-```
-Every (fact)filter action alters the doll list permanently until it gets either cleared oder loaded again. This means multiple filter values within the same filter call are combined via an OR-operation. Hence, multiple filter commands are an AND-combination.
+Load all puppet agents known to the configured puppet master in `conf/doll.cfg` .
 ```bash
-$ doll list
-app.dev
-balancer.dev
-log.dev
-web.dev
+$ doll load-puppet-agents
 ```
-Maybe add another one manually.
+Or simply add nodes manually.
 ```bash
 $ doll add super.special
 ```
+Reset list of nodes.
+```bash
+$ doll clear
+```
+
+### list all nodes
+View all known nodes.
 ```bash
 $ doll list
-app.dev
-balancer.dev
-log.dev
-web.dev
-super.special
-````
-Send simple command like triggering pupper agent
+```
+
+### filter nodes
+Filter hostnames using regular expressions,
 ```bash
-$ doll run "puppet agent --onetime --no-daemonize"
-[1] 11:15:39 [SUCCESS] app.dev
-[2] 11:16:13 [SUCCESS] balancer.dev
-[3] 11:16:54 [SUCCESS] log.dev
-[4] 11:17:38 [SUCCESS] web.dev
-[5] 11:18:06 [SUCCESS] super.special
+$ doll filter .*dev 
 ```
-... or restart a service
+or regarding certain facter values. You could also allow multiple legal values.
 ```bash
-$ doll run "service ntpd restart"
-app.dev: Shutting down ntpd: 
-app.dev: [  OK  ]
-app.dev: 
-app.dev: Starting ntpd: 
-app.dev: [  OK  ]
-app.dev: 
-[1] 11:17:54 [SUCCESS] app.dev
-balancer.dev: Shutting down ntpd: 
-balancer.dev: [  OK  ]
-balancer.dev: 
-balancer.dev: Starting ntpd: 
-balancer.dev: [  OK  ]
-balancer.dev: 
-[2] 11:17:54 [SUCCESS] balancer.dev
-...
+$ doll factfilter osfamily RedHat
+$ doll factfilter processorcount 1 2 4
 ```
-You can ignore dolls permanently so they will be excluded from any run.
+Every filter action alters the doll list permanently until it gets either cleared oder loaded again. 
+
+### trigger actions
+Trigger a puppet onetime puppet agent run on all nodes in the list,
+```bash
+$ doll trigger-puppet 
 ```
-$ doll ignore app.dev
-$ doll listignores
-app.dev
-$ doll clearignores
+or run an arbitrary command on each node, like restarting a service.
+```bash
+$ doll run <CMD>
 ```
+
+### display puppet information
+Show the last puppet run's summary for each node.
+```bash
+$ doll puppet-summary
+``` 
+Show the puppet agent version on each node.
+```bash
+$ doll puppet-version
+```
+
+### ignor enodes
+Permanently add hostname (or regular expression) to ignore list.
+```bash
+$ doll ignore <PATTERN>
+```
+Show ignored nodes.
+```bash
+$ doll list-ignored
+```
+Reset ignore list.
+```bash
+$ doll clear-ignored
+```
+
