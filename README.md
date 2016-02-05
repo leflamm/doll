@@ -1,5 +1,3 @@
-# TO BE RENEWED!
-
 # doll
 
 Simple glue code that can be used to send arbitrary commands to nodes. Nodes can be added manually or retrieved from the list of puppet agents known to a puppet master. It adds the functionality to filter by hostname patterns or by facter facts as well as to ignore certain hosts. 
@@ -71,7 +69,7 @@ Show the puppet agent version on each node.
 $ doll puppet-version
 ```
 
-### ignor enodes
+### ignore nodes
 Permanently add hostname (or regular expression) to ignore list.
 ```bash
 $ doll ignore <PATTERN>
